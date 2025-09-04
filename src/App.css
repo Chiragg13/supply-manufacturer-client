@@ -12,15 +12,15 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif; /* Using Poppins, a modern, clean font */
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--soft-blue); /* Fallback background */
+  background-color: #111; /* Dark fallback background */
   color: var(--dark-grey);
-  overflow-x: hidden; /* Prevent horizontal scroll from animations */
+  overflow-x: hidden;
 }
 
-/* --- Video Background & Overlay --- */
+/* --- Video Background & NEW DARK Overlay --- */
 .App-background-video {
   position: fixed;
   top: 50%;
@@ -31,7 +31,7 @@ body {
   width: auto;
   height: auto;
   z-index: -2;
-  filter: brightness(0.6) saturate(1.2); /* You can adjust this filter */
+  /* Removed filter to show original video color */
 }
 
 .App-overlay {
@@ -40,18 +40,21 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(224, 242, 247, 0.8) 0%, /* Lightest Blue with Transparency */
-    rgba(179, 224, 242, 0.7) 100% /* Soft Blue with Transparency */
-  );
-  z-index: -1; /* Above background image, below content */
+  /* This is now a semi-transparent BLACK gradient */
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
+  z-index: -1;
 }
 
+/* --- UPDATED Centering Logic --- */
 .App {
+  display: flex; /* Use flexbox to center */
+  flex-direction: column;
+  align-items: center; /* Horizontally center */
+  justify-content: center; /* Vertically center */
+  min-height: 100vh; /* Make it full height */
   text-align: center;
   position: relative;
-  z-index: 1; /* Content above background */
+  z-index: 1;
   padding: 2rem;
   box-sizing: border-box;
 }
@@ -63,15 +66,14 @@ body {
   box-shadow: 0 10px 30px var(--shadow-medium);
   padding: 3rem;
   width: 100%;
-  max-width: 650px; /* Increased max-width for better spacing */
-  margin: 4rem auto; /* Center the card vertically and horizontally */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 650px;
+  /* Margin is no longer needed for centering */
 }
 
+/* ... The rest of your CSS from h1 downwards can remain the same ... */
+
 h1 {
-  font-size: 3rem; /* Larger title */
+  font-size: 3rem;
   color: var(--vibrant-blue);
   margin-bottom: 1.5rem;
   text-shadow: 2px 2px 5px var(--shadow-light);
@@ -103,22 +105,21 @@ p {
   line-height: 1.6;
 }
 
-/* --- Input and Button Styling --- */
 .input-group {
   display: flex;
   width: 100%;
   margin-bottom: 1.5rem;
-  gap: 10px; /* Space between input and button */
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
 
 input[type="text"],
 input[type="number"] {
-  flex-grow: 1; /* Input takes available space */
+  flex-grow: 1;
   padding: 14px 18px;
   font-size: 1.1rem;
-  border-radius: 30px; /* Pill-shaped input */
+  border-radius: 30px;
   border: 2px solid var(--soft-blue);
   background-color: var(--white);
   color: var(--dark-grey);
@@ -137,15 +138,15 @@ button {
   padding: 14px 28px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 30px; /* Pill-shaped button */
+  border-radius: 30px;
   border: none;
   background-image: linear-gradient(45deg, var(--vibrant-blue) 0%, var(--aqua-cyan) 100%);
   color: var(--white);
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 6px 20px rgba(58, 141, 255, 0.4);
-  position: relative; /* For loading animation */
-  overflow: hidden; /* Hide overflow of loading circle */
+  position: relative;
+  overflow: hidden;
 }
 
 button:hover:not(:disabled) {
@@ -154,14 +155,13 @@ button:hover:not(:disabled) {
 }
 
 button:disabled {
-  background-image: linear-gradient(45deg, #a0c4ff 0%, #a4e6ff 100%); /* Lighter disabled state */
+  background-image: linear-gradient(45deg, #a0c4ff 0%, #a4e6ff 100%);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
   color: #c0c0c0;
 }
 
-/* --- Custom Loading Spinner Animation --- */
 .button-loading-spinner {
   position: absolute;
   top: 50%;
@@ -181,10 +181,9 @@ button:disabled {
   100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* --- QR Code & History Styling --- */
 .qr-code-container {
   margin-top: 2rem;
-  background-color: var(--white); /* QR code on white background for scanning */
+  background-color: var(--white);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 5px 15px var(--shadow-light);
@@ -194,15 +193,10 @@ button:disabled {
   gap: 1rem;
 }
 
-.qr-code-container h4 {
+.qr-code-container h4, .qr-code-container p {
   color: var(--dark-grey);
   margin: 0;
   font-size: 1.3rem;
-}
-
-.qr-code-container p {
-  color: var(--dark-grey);
-  font-size: 0.9rem;
 }
 
 .qr-code-container img {
@@ -252,7 +246,6 @@ button:disabled {
   border: 1px solid var(--error-color);
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
   .main-content-card {
     padding: 1.5rem;
