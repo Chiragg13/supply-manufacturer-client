@@ -1,42 +1,136 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Basic Setup & Dark Theme */
+:root {
+  --background-color: #282c34;
+  --text-color: #ffffff;
+  --primary-color: #61dafb;
+  --secondary-color: #3b3f48;
+  --border-color: #4a4f5a;
+  --error-color: #ff6b6b;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.App {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  padding: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* --- Form and Container Styling --- */
+
+hr {
+  width: 80%;
+  max-width: 600px;
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 40px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.form-container {
+  background-color: var(--secondary-color);
+  padding: 20px 30px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.card {
-  padding: 2em;
+input[type="text"],
+input[type="number"] {
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin-right: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--primary-color);
+  color: #282c34;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #ffffff;
+}
+
+/* --- QR Code, History, and Button Group Styling --- */
+
+.qr-code-container {
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.qr-code-container h4, .qr-code-container p {
+  color: #282c34;
+  margin: 10px 0;
+}
+
+.qr-code-container img {
+  border: 5px solid white;
+}
+
+.button-group {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.history-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-align: left;
+  max-width: 500px;
+  width: 100%;
+}
+
+.history-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.history-container li {
+  background-color: var(--secondary-color);
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.error {
+  color: var(--error-color);
+  font-weight: bold;
+  margin-top: 15px;
 }
