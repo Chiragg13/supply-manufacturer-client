@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react'; // Import useRef
 import { ethers } from 'ethers';
-import QRCode from 'qrcode'; // Import the new library
+import QRCode from 'qrcode';
 import contractABI from './contracts/SupplyChain.json';
 import './App.css';
 
@@ -14,10 +14,10 @@ function App() {
   const [itemHistory, setItemHistory] = useState(null);
   const [itemDetails, setItemDetails] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-  
-  // --- NEW STATE for the QR Code ---
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState('');
-
+  
+  // --- NEW: A ref to store the latest item ID for download/print ---
+  const latestItemId = useRef(null);
 
   const connectWallet = async () => {
     // ... (This function remains unchanged)
@@ -42,20 +42,20 @@ function App() {
   const handleCreateItem = async (e) => {
     e.preventDefault();
     if (!contract || !itemName) return;
-    setQrCodeDataUrl(''); // Clear previous QR code
+    setQrCodeDataUrl('');
     try {
       const tx = await contract.createItem(itemName);
-      const receipt = await tx.wait(); // Wait for the transaction to be mined
+      const receipt = await tx.wait();
       
-      // --- NEW LOGIC to get the newItemId and generate QR code ---
-      // The contract emits an 'ItemCreated' event, which is in the transaction logs.
-      // We parse the logs to find the ID of the item we just created.
       const iface = new ethers.Interface(contractABI.abi);
       const parsedLog = iface.parseLog(receipt.logs[0]);
       const newItemId = parsedLog.args.itemId;
       
+      // --- NEW: Store the new ID in the ref ---
+      latestItemId.current = newItemId.toString();
+      
       const qrUrl = `${window.location.origin}/item/${newItemId}`;
-      const dataUrl = await QRCode.toDataURL(qrUrl);
+      const dataUrl = await QRCode.toDataURL(qrUrl, { width: 300 }); // Increase QR code size
       setQrCodeDataUrl(dataUrl);
 
       alert(`Item created successfully! New Item ID is: ${newItemId}`);
@@ -65,6 +65,41 @@ function App() {
       alert("Error creating item. See the console for details.");
     }
   };
+  
+  // --- NEW FUNCTION to handle downloading the QR code ---
+  const handleDownloadQR = () => {
+    if (!qrCodeDataUrl) return;
+    const link = document.createElement('a');
+    link.href = qrCodeDataUrl;
+    link.download = `item-qrcode-${latestItemId.current}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+  // --- NEW FUNCTION to handle printing the QR code ---
+  const handlePrintQR = () => {
+    if (!qrCodeDataUrl) return;
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+      <html>
+        <head><title>Print QR Code</title></head>
+        <body style="text-align: center; margin-top: 50px;">
+          <h1>Item ID: ${latestItemId.current}</h1>
+          <p>Scan to verify authenticity</p>
+          <img src="${qrCodeDataUrl}" />
+          <script>
+            window.onload = () => {
+              window.print();
+              window.close();
+            }
+          </script>
+        </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
 
   const handleGetItemHistory = async (e) => {
     // ... (This function remains unchanged)
@@ -110,12 +145,16 @@ function App() {
                 />
                 <button type="submit">Create Item</button>
               </form>
-              {/* --- NEW DISPLAY for the QR Code --- */}
               {qrCodeDataUrl && (
                 <div className="qr-code-container">
                   <h4>New Item QR Code:</h4>
                   <img src={qrCodeDataUrl} alt="Item QR Code" />
                   <p>Save this code to track your item.</p>
+                  {/* --- NEW BUTTONS for download and print --- */}
+                  <div className="button-group">
+                    <button onClick={handleDownloadQR}>Download QR</button>
+                    <button onClick={handlePrintQR}>Print QR</button>
+                  </div>
                 </div>
               )}
             </div>
@@ -123,7 +162,8 @@ function App() {
             <hr />
 
             <div className="form-container">
-              <form onSubmit={handleGetItemHistory}>
+               {/* ... (Get History form remains unchanged) ... */}
+               <form onSubmit={handleGetItemHistory}>
                 <h3>View Item History</h3>
                 <input
                   type="number"
@@ -139,7 +179,7 @@ function App() {
             {errorMessage && <p className="error">{errorMessage}</p>}
             {itemHistory && itemDetails && (
               <div className="history-container">
-                {/* ... (This display section remains unchanged) */}
+                {/* ... (History display remains unchanged) ... */}
                 <h3>History for Item #{viewItemId}: {itemDetails.name}</h3>
                 <p>Current Owner: {itemDetails.currentOwner}</p>
                 <p>Current Status: {StateEnum[Number(itemDetails.currentState)]}</p>
