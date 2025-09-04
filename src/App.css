@@ -58,7 +58,7 @@ h3 {
   margin-bottom: 1.5rem;
   position: relative;
   padding-bottom: 0.5rem;
-  color: #275ba3;
+  color: #9bc4ff;
 }
 h3::after {
   content: '';
@@ -72,7 +72,7 @@ h3::after {
   border-radius: 2px;
 }
 p {
-  color: #275ba3;
+  color: #9bc4ff;
   line-height: 1.6;
 }
 .input-group {
