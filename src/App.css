@@ -22,34 +22,11 @@ body {
   background-position: center;
   background-attachment: fixed; /* Keeps the image still on scroll */
 }
-.App-background-video {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -2;
-  object-fit: cover; /* This is the key property */
-}
-.App-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
-  z-index: -1;
-}
 .App {
   display: grid;
   place-items: center;
   min-height: 100vh;
   text-align: center;
-  position: relative;
-  z-index: 1;
   padding: 2rem;
   box-sizing: border-box;
 }
