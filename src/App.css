@@ -9,7 +9,6 @@
   --shadow-medium: rgba(0, 0, 0, 0.2);
   --error-color: #ff8c8c;
 }
-
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -18,42 +17,36 @@ body {
   background-position: center;
   background-attachment: fixed;
 
-  /* --- NEW: Align content to the top-right corner --- */
+  /* --- Centering Logic now on the body --- */
   display: grid;
-  justify-items: end;  /* Align horizontally to the end (right) */
-  align-items: start;    /* Align vertically to the start (top) */
+  place-items: center;
   min-height: 100vh;
 }
 
-/* We remove all layout rules from .App, it is just a simple container now */
 .App {
-  width: 100%;
-  max-width: 650px;
+  width: 100%; /* Ensure the container can span the full width */
   text-align: center;
-
-  /* --- NEW: Add margin to position the card --- */
-  margin-top: 15vh;    /* Pushes it down from the top */
-  margin-right: 10vw;   /* Pushes it in from the right */
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: flex; /* Added to help center the card in some edge cases */
+  justify-content: center; /* Added to help center the card */
 }
-
 .main-content-card {
   background-color: var(--white);
   border-radius: 15px;
   box-shadow: 0 10px 30px var(--shadow-medium);
   padding: 2rem 3rem;
   width: 100%;
-  box-sizing: border-box; /* Add box-sizing */
+  max-width: 650px;
 }
-
-/* ... The rest of the styles from h1 downwards remain the same ... */
-
 h1 {
   font-size: 3rem;
   color: var(--vibrant-blue);
   margin-bottom: 1.5rem;
   text-shadow: 2px 2px 5px var(--shadow-light);
 }
-
 h3 {
   font-size: 1.8rem;
   color: var(--dark-grey);
@@ -62,7 +55,6 @@ h3 {
   position: relative;
   padding-bottom: 0.5rem;
 }
-
 h3::after {
   content: '';
   position: absolute;
@@ -74,12 +66,10 @@ h3::after {
   background-color: var(--aqua-cyan);
   border-radius: 2px;
 }
-
 p {
   color: var(--dark-grey);
   line-height: 1.6;
 }
-
 .input-group {
   display: flex;
   width: 100%;
@@ -88,7 +78,6 @@ p {
   align-items: center;
   justify-content: center;
 }
-
 input[type="text"],
 input[type="number"] {
   flex-grow: 1;
@@ -101,14 +90,12 @@ input[type="number"] {
   transition: all 0.3s ease;
   box-shadow: inset 0 2px 5px var(--shadow-light);
 }
-
 input[type="text"]:focus,
 input[type="number"]:focus {
   outline: none;
   border-color: var(--vibrant-blue);
   box-shadow: 0 0 0 3px rgba(58, 141, 255, 0.3);
 }
-
 button {
   padding: 14px 28px;
   font-size: 1.1rem;
@@ -123,12 +110,10 @@ button {
   position: relative;
   overflow: hidden;
 }
-
 button:hover:not(:disabled) {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(58, 141, 255, 0.6);
 }
-
 button:disabled {
   background-image: linear-gradient(45deg, #a0c4ff 0%, #a4e6ff 100%);
   cursor: not-allowed;
@@ -136,7 +121,6 @@ button:disabled {
   box-shadow: none;
   color: #c0c0c0;
 }
-
 .button-loading-spinner {
   position: absolute;
   top: 50%;
@@ -150,11 +134,9 @@ button:disabled {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-
 .qr-code-container {
   margin-top: 2rem;
   background-color: var(--white);
@@ -166,35 +148,29 @@ button:disabled {
   align-items: center;
   gap: 1rem;
 }
-
 .qr-code-container h4,
 .qr-code-container p {
   color: var(--dark-grey);
   margin: 0;
 }
-
 .qr-code-container img {
   border: 5px solid var(--white);
   box-shadow: 0 2px 10px var(--shadow-light);
   border-radius: 5px;
 }
-
 .button-group {
   display: flex;
   gap: 15px;
   margin-top: 1rem;
 }
-
 .history-container {
   text-align: left;
   margin-top: 2rem;
 }
-
 .history-container ul {
   list-style: none;
   padding: 0;
 }
-
 .history-container li {
   background: var(--lightest-blue);
   padding: 15px 20px;
@@ -205,11 +181,9 @@ button:disabled {
   color: var(--dark-grey);
   border-left: 5px solid var(--aqua-cyan);
 }
-
 .history-container li strong {
   color: var(--vibrant-blue);
 }
-
 .error {
   color: var(--error-color);
   font-weight: bold;
@@ -219,7 +193,6 @@ button:disabled {
   border-radius: 8px;
   border: 1px solid var(--error-color);
 }
-
 @media (max-width: 768px) {
   .main-content-card {
     padding: 1.5rem;
