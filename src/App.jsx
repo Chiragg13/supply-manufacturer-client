@@ -133,8 +133,7 @@ function App() {
   const StateEnum = ["Created", "InTransit", "ArrivedAtRetailer", "Sold"];
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="main-container">
         <h1>Supply Chain Tracker</h1>
         {account ? (
           <div>
@@ -208,7 +207,6 @@ function App() {
         ) : (
           <button onClick={connectWallet}>Connect Wallet</button>
         )}
-      </header>
     </div>
   );
 }

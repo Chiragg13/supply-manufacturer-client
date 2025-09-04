@@ -1,119 +1,122 @@
-/* Basic Setup & Dark Theme */
+/* --- NEW Color Palette & Base Styles --- */
 :root {
-  --background-color: #282c34;
+  --background-start: #154D71; /* Darkest Blue */
+  --background-end: #1C6EA4; /* Medium Blue */
+  --primary-accent: #33A1E0; /* Bright Blue */
+  --highlight-text: #FFF9AF; /* Pale Yellow */
   --text-color: #ffffff;
-  --primary-color: #61dafb;
-  --secondary-color: #3b3f48;
-  --border-color: #4a4f5a;
-  --error-color: #ff6b6b;
+  --container-bg: rgba(28, 110, 164, 0.25); /* Semi-transparent Medium Blue */
+  --container-border: rgba(51, 161, 224, 0.5);
+  --error-color: #ff8c8c;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background-color);
+  background: linear-gradient(135deg, var(--background-start), var(--background-end));
   color: var(--text-color);
+  background-attachment: fixed; /* Keeps the gradient fixed during scroll */
 }
 
 .App {
   text-align: center;
 }
 
-.App-header {
+/* --- Main App Container --- */
+.main-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  padding: 20px;
+  font-size: calc(12px + 1.5vmin);
+  padding: 2rem;
+  box-sizing: border-box; /* Ensures padding doesn't cause overflow */
 }
 
-/* --- Form and Container Styling --- */
-
-hr {
-  width: 80%;
-  max-width: 600px;
-  border: 0;
-  border-top: 1px solid var(--border-color);
-  margin: 40px 0;
-}
-
-.form-container {
-  background-color: var(--secondary-color);
-  padding: 20px 30px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+/* --- Glassmorphism Effect for Containers --- */
+.form-container, .history-container {
+  background: var(--container-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border-radius: 15px;
+  border: 1px solid var(--container-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  padding: 2rem;
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 550px;
+  margin-bottom: 2rem;
 }
 
+h1 {
+  font-size: 2.5rem;
+  color: var(--highlight-text);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: var(--primary-accent);
+  border-bottom: 2px solid var(--container-border);
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* --- Input and Button Styling --- */
 input[type="text"],
 input[type="number"] {
-  padding: 12px;
+  padding: 12px 15px;
   font-size: 16px;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  background-color: var(--background-color);
+  border-radius: 8px;
+  border: 1px solid var(--container-border);
+  background: rgba(21, 77, 113, 0.5); /* Semi-transparent Dark Blue */
   color: var(--text-color);
   margin-right: 10px;
+  width: 60%;
 }
 
 button {
-  padding: 12px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 8px;
   border: none;
-  background-color: var(--primary-color);
-  color: #282c34;
+  background-color: var(--primary-accent);
+  color: var(--text-color);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(51, 161, 224, 0.4);
 }
 
 button:hover {
-  background-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(51, 161, 224, 0.6);
 }
 
-/* --- QR Code, History, and Button Group Styling --- */
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 
+/* --- QR Code & History Styling --- */
 .qr-code-container {
   margin-top: 20px;
-  background-color: white;
+  background-color: #f0f0f0;
   padding: 20px;
   border-radius: 8px;
   display: inline-block;
 }
 
 .qr-code-container h4, .qr-code-container p {
-  color: #282c34;
+  color: #333;
   margin: 10px 0;
-}
-
-.qr-code-container img {
-  border: 5px solid white;
-}
-
-.button-group {
-  margin-top: 15px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.history-container {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  text-align: left;
-  max-width: 500px;
-  width: 100%;
 }
 
 .history-container ul {
@@ -122,15 +125,12 @@ button:hover {
 }
 
 .history-container li {
-  background-color: var(--secondary-color);
+  background: rgba(21, 77, 113, 0.5);
   padding: 15px;
-  border-radius: 4px;
+  border-radius: 8px;
   margin-bottom: 10px;
-  line-height: 1.6;
 }
 
 .error {
   color: var(--error-color);
-  font-weight: bold;
-  margin-top: 15px;
 }
