@@ -136,7 +136,16 @@ function App() {
 
   return (
     <div className="App">
-      <div className="App-background"></div>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="App-background-video"
+        >
+        <source src="/videos/background-video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <div className="App-overlay"></div>
 
       <div className="main-content-card"> {/* This new div wraps all content */}
