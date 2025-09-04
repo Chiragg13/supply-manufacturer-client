@@ -1,4 +1,3 @@
-/* --- NEW Color Palette & Base Styles --- */
 :root {
   --lightest-blue: #E0F2F7;
   --soft-blue: #B3E0F2;
@@ -8,18 +7,14 @@
   --white: #FFFFFF;
   --shadow-light: rgba(0, 0, 0, 0.1);
   --shadow-medium: rgba(0, 0, 0, 0.2);
+  --error-color: #ff8c8c;
 }
-
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #111; /* Dark fallback background */
+  background-color: #111;
   color: var(--dark-grey);
-  overflow-x: hidden;
 }
-
 .App-background-video {
   position: fixed;
   top: 50%;
@@ -29,55 +24,44 @@ body {
   min-height: 100%;
   width: auto;
   height: auto;
-  object-fit: cover;
   z-index: -2;
+  object-fit: cover; /* This is the key property */
 }
-
 .App-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* This is now a semi-transparent BLACK gradient */
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%);
   z-index: -1;
 }
-
-/* --- UPDATED Centering Logic --- */
 .App {
-  display: flex; /* Use flexbox to center */
+  display: flex;
   flex-direction: column;
-  align-items: center; /* Horizontally center */
-  justify-content: center; /* Vertically center */
-  min-height: 100vh; /* Make it full height */
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   text-align: center;
   position: relative;
   z-index: 1;
   padding: 2rem;
   box-sizing: border-box;
 }
-
-/* Main Content Container */
 .main-content-card {
   background-color: var(--white);
   border-radius: 15px;
   box-shadow: 0 10px 30px var(--shadow-medium);
-  padding: 3rem;
+  padding: 2rem 3rem;
   width: 100%;
   max-width: 650px;
-  /* Margin is no longer needed for centering */
 }
-
-/* ... The rest of your CSS from h1 downwards can remain the same ... */
-
 h1 {
   font-size: 3rem;
   color: var(--vibrant-blue);
   margin-bottom: 1.5rem;
   text-shadow: 2px 2px 5px var(--shadow-light);
 }
-
 h3 {
   font-size: 1.8rem;
   color: var(--dark-grey);
@@ -86,8 +70,7 @@ h3 {
   position: relative;
   padding-bottom: 0.5rem;
 }
-
-h3::after { /* Underline effect for headings */
+h3::after {
   content: '';
   position: absolute;
   left: 50%;
@@ -98,12 +81,10 @@ h3::after { /* Underline effect for headings */
   background-color: var(--aqua-cyan);
   border-radius: 2px;
 }
-
 p {
   color: var(--dark-grey);
   line-height: 1.6;
 }
-
 .input-group {
   display: flex;
   width: 100%;
@@ -112,7 +93,6 @@ p {
   align-items: center;
   justify-content: center;
 }
-
 input[type="text"],
 input[type="number"] {
   flex-grow: 1;
@@ -125,14 +105,12 @@ input[type="number"] {
   transition: all 0.3s ease;
   box-shadow: inset 0 2px 5px var(--shadow-light);
 }
-
 input[type="text"]:focus,
 input[type="number"]:focus {
   outline: none;
   border-color: var(--vibrant-blue);
   box-shadow: 0 0 0 3px rgba(58, 141, 255, 0.3);
 }
-
 button {
   padding: 14px 28px;
   font-size: 1.1rem;
@@ -147,12 +125,10 @@ button {
   position: relative;
   overflow: hidden;
 }
-
 button:hover:not(:disabled) {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(58, 141, 255, 0.6);
 }
-
 button:disabled {
   background-image: linear-gradient(45deg, #a0c4ff 0%, #a4e6ff 100%);
   cursor: not-allowed;
@@ -160,7 +136,6 @@ button:disabled {
   box-shadow: none;
   color: #c0c0c0;
 }
-
 .button-loading-spinner {
   position: absolute;
   top: 50%;
@@ -174,12 +149,9 @@ button:disabled {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
-
 .qr-code-container {
   margin-top: 2rem;
   background-color: var(--white);
@@ -191,35 +163,29 @@ button:disabled {
   align-items: center;
   gap: 1rem;
 }
-
-.qr-code-container h4, .qr-code-container p {
+.qr-code-container h4,
+.qr-code-container p {
   color: var(--dark-grey);
   margin: 0;
-  font-size: 1.3rem;
 }
-
 .qr-code-container img {
   border: 5px solid var(--white);
   box-shadow: 0 2px 10px var(--shadow-light);
   border-radius: 5px;
 }
-
 .button-group {
   display: flex;
   gap: 15px;
   margin-top: 1rem;
 }
-
 .history-container {
   text-align: left;
   margin-top: 2rem;
 }
-
 .history-container ul {
   list-style: none;
   padding: 0;
 }
-
 .history-container li {
   background: var(--lightest-blue);
   padding: 15px 20px;
@@ -230,11 +196,9 @@ button:disabled {
   color: var(--dark-grey);
   border-left: 5px solid var(--aqua-cyan);
 }
-
 .history-container li strong {
   color: var(--vibrant-blue);
 }
-
 .error {
   color: var(--error-color);
   font-weight: bold;
@@ -244,11 +208,10 @@ button:disabled {
   border-radius: 8px;
   border: 1px solid var(--error-color);
 }
-
 @media (max-width: 768px) {
   .main-content-card {
     padding: 1.5rem;
-    margin: 2rem auto;
+    margin: 1rem auto;
   }
   h1 {
     font-size: 2.2rem;
@@ -264,9 +227,7 @@ button:disabled {
   input[type="number"],
   button {
     width: 100%;
+    box-sizing: border-box;
     margin-right: 0;
-  }
-  button {
-    margin-top: 0;
   }
 }
