@@ -12,21 +12,17 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--dark-grey);
-
-  /* --- New Background Image Styles --- */
   background-image: url('/images/background-image.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Keeps the image still on scroll */
-}
-#root {
+  background-attachment: fixed;
+
+  /* --- Centering Logic now on the body --- */
   display: grid;
   place-items: center;
   min-height: 100vh;
 }
+
 .App {
   width: 100%; /* Ensure the container can span the full width */
   text-align: center;
