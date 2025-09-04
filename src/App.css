@@ -35,7 +35,6 @@ body {
 }
 .main-content-card {
   background-color: rgba(255, 255, 255, 0.7); /* Translucent White */
-  backdrop-filter: blur(10px);                  /* Frosted Glass Effect */
   -webkit-backdrop-filter: blur(10px);        /* For Safari browser support */
   border-radius: 15px;
   box-shadow: 0 10px 30px var(--shadow-medium);
