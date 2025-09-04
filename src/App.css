@@ -22,9 +22,11 @@ body {
 /* --- THIS IS THE KEY FIX --- */
 /* The .App container is now the main centering element */
 .App {
-  display: grid;
-  place-items: center;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* This centers the card horizontally */
+  justify-content: center; /* This centers the card vertically */
+  min-height: 100vh;         /* This makes the container full-height */
   padding: 2rem;
   box-sizing: border-box;
 }
