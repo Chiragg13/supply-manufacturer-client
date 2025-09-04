@@ -1,3 +1,5 @@
+// Add Poppins font from Google Fonts
+import '@fontsource/poppins';
 import { useState, useRef } from 'react';
 import { ethers } from 'ethers';
 import QRCode from 'qrcode';
@@ -133,15 +135,20 @@ function App() {
   const StateEnum = ["Created", "InTransit", "ArrivedAtRetailer", "Sold"];
 
   return (
-    <div className="main-container">
+    <div className="App">
+      <div className="App-background"></div>
+      <div className="App-overlay"></div>
+
+      <div className="main-content-card"> {/* This new div wraps all content */}
         <h1>Supply Chain Tracker</h1>
+
         {account ? (
           <div>
             <p><strong>Connected Account:</strong> {account.substring(0, 6)}...{account.substring(account.length - 4)}</p>
             
-            <div className="form-container">
-              <form onSubmit={handleCreateItem}>
-                <h3>Create a New Item</h3>
+            <h3>Create a New Item</h3>
+            <form onSubmit={handleCreateItem}>
+              <div className="input-group"> {/* Added for input & button grouping */}
                 <input
                   type="text"
                   placeholder="Enter item name"
@@ -149,30 +156,32 @@ function App() {
                   onChange={(e) => setItemName(e.target.value)}
                   required
                 />
-                {/* --- NEW: Button is now disabled and changes text when loading --- */}
                 <button type="submit" disabled={isLoading}>
-                  {isLoading ? 'Processing...' : 'Create Item'}
+                  {isLoading ? (
+                    <div className="button-loading-spinner"></div> // Custom spinner
+                  ) : (
+                    'Create Item'
+                  )}
                 </button>
-              </form>
-              {qrCodeDataUrl && (
-                <div className="qr-code-container">
-                  <h4>New Item QR Code:</h4>
-                  <img src={qrCodeDataUrl} alt="Item QR Code" />
-                  <p>Save this code to track your item.</p>
-                  <div className="button-group">
-                    <button onClick={handleDownloadQR}>Download QR</button>
-                    <button onClick={handlePrintQR}>Print QR</button>
-                  </div>
+              </div>
+            </form>
+            {qrCodeDataUrl && (
+              <div className="qr-code-container">
+                <h4>New Item QR Code:</h4>
+                <img src={qrCodeDataUrl} alt="Item QR Code" />
+                <p>Save this code to track your item.</p>
+                <div className="button-group">
+                  <button onClick={handleDownloadQR}>Download QR</button>
+                  <button onClick={handlePrintQR}>Print QR</button>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
-            <hr />
+            {/* <hr /> Removed the horizontal rule, styling in CSS handles separation */}
 
-            <div className="form-container">
-               {/* ... (Get History form remains unchanged) ... */}
-               <form onSubmit={handleGetItemHistory}>
-                <h3>View Item History</h3>
+            <h3>View Item History</h3>
+            <form onSubmit={handleGetItemHistory}>
+              <div className="input-group"> {/* Added for input & button grouping */}
                 <input
                   type="number"
                   placeholder="Enter item ID"
@@ -181,22 +190,21 @@ function App() {
                   required
                 />
                 <button type="submit">Get History</button>
-              </form>
-            </div>
+              </div>
+            </form>
 
             {errorMessage && <p className="error">{errorMessage}</p>}
             {itemHistory && itemDetails && (
               <div className="history-container">
-                {/* ... (History display remains unchanged) ... */}
                 <h3>History for Item #{viewItemId}: {itemDetails.name}</h3>
-                <p>Current Owner: {itemDetails.currentOwner}</p>
+                <p>Current Owner: {account.substring(0, 6)}...{account.substring(account.length - 4)}</p>
                 <p>Current Status: {StateEnum[Number(itemDetails.currentState)]}</p>
                 <ul>
                   {itemHistory.map((entry, index) => (
                     <li key={index}>
                       <strong>Status:</strong> {StateEnum[Number(entry.state)]} <br />
                       <strong>Timestamp:</strong> {new Date(Number(entry.timestamp) * 1000).toLocaleString()} <br />
-                      <strong>Updated by:</strong> {entry.actor}
+                      <strong>Updated by:</strong> {entry.actor.substring(0, 6)}...{entry.actor.substring(entry.actor.length - 4)}
                     </li>
                   ))}
                 </ul>
@@ -207,6 +215,7 @@ function App() {
         ) : (
           <button onClick={connectWallet}>Connect Wallet</button>
         )}
+      </div> {/* End of main-content-card */}
     </div>
   );
 }
