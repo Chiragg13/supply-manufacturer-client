@@ -30,6 +30,7 @@ body {
   min-height: 100%;
   width: auto;
   height: auto;
+  object-fit: cover;
   z-index: -2;
   /* Removed filter to show original video color */
 }
