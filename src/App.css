@@ -17,18 +17,23 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  
-  /* THIS IS NOW THE ONLY CENTERING RULE */
+
+  /* --- NEW: Align content to the top-right corner --- */
   display: grid;
-  place-items: center;
+  justify-items: end;  /* Align horizontally to the end (right) */
+  align-items: start;    /* Align vertically to the start (top) */
   min-height: 100vh;
 }
 
 /* We remove all layout rules from .App, it is just a simple container now */
 .App {
   width: 100%;
-  max-width: 650px; /* Set max-width here */
+  max-width: 650px;
   text-align: center;
+
+  /* --- NEW: Add margin to position the card --- */
+  margin-top: 15vh;    /* Pushes it down from the top */
+  margin-right: 10vw;   /* Pushes it in from the right */
 }
 
 .main-content-card {
