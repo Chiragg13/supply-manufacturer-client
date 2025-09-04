@@ -38,6 +38,7 @@ body {
   -webkit-backdrop-filter: blur(10px);        /* For Safari browser support */
   border-radius: 15px;
   backdrop-filter: blur(7px);
+  color: #2e9de2;
   box-shadow: 0 10px 30px var(--shadow-medium);
   padding: 2rem 3rem;
   width: 100%;
