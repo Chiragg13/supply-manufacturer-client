@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'; // Import useRef
+import { useState, useRef } from 'react';
 import { ethers } from 'ethers';
 import QRCode from 'qrcode';
 import contractABI from './contracts/SupplyChain.json';
@@ -15,9 +15,11 @@ function App() {
   const [itemDetails, setItemDetails] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState('');
-  
-  // --- NEW: A ref to store the latest item ID for download/print ---
   const latestItemId = useRef(null);
+  
+  // --- NEW STATE for loading indicator ---
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const connectWallet = async () => {
     // ... (This function remains unchanged)
@@ -43,6 +45,10 @@ function App() {
     e.preventDefault();
     if (!contract || !itemName) return;
     setQrCodeDataUrl('');
+    
+    // --- NEW: Set loading to true ---
+    setIsLoading(true);
+
     try {
       const tx = await contract.createItem(itemName);
       const receipt = await tx.wait();
@@ -51,11 +57,10 @@ function App() {
       const parsedLog = iface.parseLog(receipt.logs[0]);
       const newItemId = parsedLog.args.itemId;
       
-      // --- NEW: Store the new ID in the ref ---
       latestItemId.current = newItemId.toString();
       
       const qrUrl = `${window.location.origin}/item/${newItemId}`;
-      const dataUrl = await QRCode.toDataURL(qrUrl, { width: 300 }); // Increase QR code size
+      const dataUrl = await QRCode.toDataURL(qrUrl, { width: 300 });
       setQrCodeDataUrl(dataUrl);
 
       alert(`Item created successfully! New Item ID is: ${newItemId}`);
@@ -63,11 +68,14 @@ function App() {
     } catch (error) {
       console.error("Error creating item:", error);
       alert("Error creating item. See the console for details.");
+    } finally {
+      // --- NEW: Set loading back to false when done ---
+      setIsLoading(false);
     }
   };
   
-  // --- NEW FUNCTION to handle downloading the QR code ---
   const handleDownloadQR = () => {
+    // ... (This function remains unchanged)
     if (!qrCodeDataUrl) return;
     const link = document.createElement('a');
     link.href = qrCodeDataUrl;
@@ -77,8 +85,8 @@ function App() {
     document.body.removeChild(link);
   };
   
-  // --- NEW FUNCTION to handle printing the QR code ---
   const handlePrintQR = () => {
+    // ... (This function remains unchanged)
     if (!qrCodeDataUrl) return;
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
@@ -99,7 +107,6 @@ function App() {
     `);
     printWindow.document.close();
   };
-
 
   const handleGetItemHistory = async (e) => {
     // ... (This function remains unchanged)
@@ -143,14 +150,16 @@ function App() {
                   onChange={(e) => setItemName(e.target.value)}
                   required
                 />
-                <button type="submit">Create Item</button>
+                {/* --- NEW: Button is now disabled and changes text when loading --- */}
+                <button type="submit" disabled={isLoading}>
+                  {isLoading ? 'Processing...' : 'Create Item'}
+                </button>
               </form>
               {qrCodeDataUrl && (
                 <div className="qr-code-container">
                   <h4>New Item QR Code:</h4>
                   <img src={qrCodeDataUrl} alt="Item QR Code" />
                   <p>Save this code to track your item.</p>
-                  {/* --- NEW BUTTONS for download and print --- */}
                   <div className="button-group">
                     <button onClick={handleDownloadQR}>Download QR</button>
                     <button onClick={handlePrintQR}>Print QR</button>
