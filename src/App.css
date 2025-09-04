@@ -37,10 +37,8 @@ body {
   z-index: -1;
 }
 .App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   min-height: 100vh;
   text-align: center;
   position: relative;
