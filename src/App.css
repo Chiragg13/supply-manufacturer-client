@@ -12,8 +12,15 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: #111;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   color: var(--dark-grey);
+
+  /* --- New Background Image Styles --- */
+  background-image: url('/images/background-image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Keeps the image still on scroll */
 }
 .App-background-video {
   position: fixed;
