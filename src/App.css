@@ -20,7 +20,6 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Video Background & NEW DARK Overlay --- */
 .App-background-video {
   position: fixed;
   top: 50%;
@@ -32,7 +31,6 @@ body {
   height: auto;
   object-fit: cover;
   z-index: -2;
-  /* Removed filter to show original video color */
 }
 
 .App-overlay {
