@@ -106,10 +106,6 @@ function App() {
 
   return (
     <div className="App">
-      <video autoPlay loop muted playsInline className="App-background-video">
-        <source src="/videos/background-video.mp4" type="video/mp4" />
-      </video>
-      <div className="App-overlay"></div>
       <div className="main-content-card">
         <h1>Supply Chain Tracker</h1>
         {account ? (
