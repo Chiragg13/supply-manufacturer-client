@@ -17,18 +17,18 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  
+  /* THIS IS NOW THE ONLY CENTERING RULE */
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
 }
 
-/* --- THIS IS THE KEY FIX --- */
-/* The .App container is now the main centering element */
+/* We remove all layout rules from .App, it is just a simple container now */
 .App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;      /* This centers the card horizontally */
-  justify-content: center; /* This centers the card vertically */
-  min-height: 100vh;         /* This makes the container full-height */
-  padding: 2rem;
-  box-sizing: border-box;
+  width: 100%;
+  max-width: 650px; /* Set max-width here */
+  text-align: center;
 }
 
 .main-content-card {
@@ -37,9 +37,10 @@ body {
   box-shadow: 0 10px 30px var(--shadow-medium);
   padding: 2rem 3rem;
   width: 100%;
-  max-width: 650px;
-  text-align: center;
+  box-sizing: border-box; /* Add box-sizing */
 }
+
+/* ... The rest of the styles from h1 downwards remain the same ... */
 
 h1 {
   font-size: 3rem;
