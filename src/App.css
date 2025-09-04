@@ -34,12 +34,16 @@ body {
   justify-content: center; /* Added to help center the card */
 }
 .main-content-card {
-  background-color: var(--white);
+  background-color: rgba(255, 255, 255, 0.7); /* Translucent White */
+  backdrop-filter: blur(10px);                  /* Frosted Glass Effect */
+  -webkit-backdrop-filter: blur(10px);        /* For Safari browser support */
   border-radius: 15px;
   box-shadow: 0 10px 30px var(--shadow-medium);
   padding: 2rem 3rem;
   width: 100%;
   max-width: 650px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Adds a subtle edge */
 }
 h1 {
   font-size: 3rem;
